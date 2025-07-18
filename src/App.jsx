@@ -8,7 +8,9 @@ function App() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setArticleList([newArticle, ...articleList])
+    if (newArticle !== "") {
+      setArticleList([newArticle, ...articleList])
+    }
   }
 
   const removeArticle = i => {
@@ -20,25 +22,33 @@ function App() {
 
   return (
     <div className='container'>
-      <h1>Articles</h1>
+      <div className='d-flex justify-content-between align-items-center py-4'>
+        <h1 className='col-7'>Articles</h1>
+        <form className='input-group' onSubmit={handleSubmit}>
+          <input type='text' className='form-control' value={newArticle} onChange={(event) => setNewArticle(event.target.value)} />
+          <button type='submit' className='btn btn-outline-primary'>Add Article</button>
+        </form>
+      </div>
       <ol className='list-group list-group-numbered'>
         {articleList.map((article, index) => {
           return (
             <div>
               <li key={index} className='list-group-item d-flex justify-content-between align-items-center'>
                 {article}
-                <button onClick={() => removeArticle(index)} type="submit" className="btn btn-outline-danger">
-                  <i className="bi bi-trash3"></i>
-                </button>
+                <div>
+                  <button type="submit" className="col btn btn-outline-primary me-2">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button onClick={() => removeArticle(index)} type="submit" className="col btn btn-outline-danger">
+                    <i className="bi bi-trash3"></i>
+                  </button>
+                </div>
               </li>
             </div>
           )
         })}
       </ol>
-      <form onSubmit={handleSubmit}>
-        <input value={newArticle} onChange={(event) => setNewArticle(event.target.value)} />
-        <button type='submit'>Add Article</button>
-      </form>
+
     </div>
   )
 }
