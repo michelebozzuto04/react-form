@@ -10,3 +10,5 @@ const articles = [
     "Article Title 9",
     "Article Title 10",
 ];
+
+export default articles;
