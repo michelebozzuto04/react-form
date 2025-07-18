@@ -11,16 +11,30 @@ function App() {
     setArticleList([newArticle, ...articleList])
   }
 
+  const removeArticle = i => {
+    const updatedArticles = articleList.filter((task, index) => {
+      return index !== i
+    });
+    setArticleList(updatedArticles);
+  }
+
   return (
     <div className='container'>
       <h1>Articles</h1>
-      <ul>
+      <ol className='list-group list-group-numbered'>
         {articleList.map((article, index) => {
           return (
-            <li key={index}>{article}</li>
+            <div>
+              <li key={index} className='list-group-item d-flex justify-content-between align-items-center'>
+                {article}
+                <button onClick={() => removeArticle(index)} type="submit" className="btn btn-outline-danger">
+                  <i className="bi bi-trash3"></i>
+                </button>
+              </li>
+            </div>
           )
         })}
-      </ul>
+      </ol>
       <form onSubmit={handleSubmit}>
         <input value={newArticle} onChange={(event) => setNewArticle(event.target.value)} />
         <button type='submit'>Add Article</button>
